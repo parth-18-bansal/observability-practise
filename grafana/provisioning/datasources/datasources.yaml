@@ -1,0 +1,10 @@
+apiversion: 1
+
+# prometheus stores data, and grafana query the data and then display it.
+# so here we are configuring grafana that you can query data from here
+datasources:
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus
+    url: http://prometheus:9090
+    isDefault: true

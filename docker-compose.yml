@@ -1,5 +1,7 @@
 name: day-1-lgtm-stack
 services:
+  
+  # grafana is for visualising metrics and logs
   grafana:
     image: grafana/grafana:latest
     ports: ["3000:3000"]
@@ -14,8 +16,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-  # prometheus:
-  # loki:
+
+  # prometheus is for collecting metrics and alerts
+  prometheus:
+    image: prom/prometheus:latest
+    ports: ["9090:9090"]
+    command: ["--config.file=/etc/prometheus/prometheus.yml","--web.enable-remote-write-receiver"]
+    volumes: ["./prometheus.yml:/etc/prometheus/prometheus.yml"]
+  
+
+  # loki is for collecting the logs
+  loki:
+    image: grafana/loki:3.7.7
+    command: ["--config.file=/etc/loki/local-config.yaml"]
+    ports: ["3100:3100"]
   # tempo:
   # mimir:
   # pyroscope:

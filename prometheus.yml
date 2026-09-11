@@ -1,0 +1,9 @@
+# global is config that is applied globally on all jobs
+global:
+  scrape_interval: 15s  # collecting data
+  evaluation_interval: 15s  # evaluate the alert rules
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
