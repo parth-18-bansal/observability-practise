@@ -33,22 +33,31 @@ services:
     
   # tempo is for tracing
   # grafana query tempo at port 3200, and opentelemetry sends traces to tempo at 4317 and 4318 port
-  tempo:
-    image: grafana/tempo:2.10.8
-    command: ["-config.file=/etc/tempo.yaml"]
-    ports: ["3200:3200", "4317", "4318"]
-    volumes: ["./tempo.yaml:/etc/tempo.yaml"]
+  # tempo:
+  #   image: grafana/tempo:2.10.8
+  #   command: ["-config.file=/etc/tempo.yaml"]
+  #   ports: ["3200:3200", "4317", "4318"]
+  #   volumes: ["./tempo.yaml:/etc/tempo.yaml"]
 
   # mimir is like a metric storage and query the metrics via grafana, we can do this in
   # prometheus also but prometheus is not scalable so we can scrape data using prometheus
   # and then store it to mimir. 
-  mimir:
-    image: grafana/mimir:latest
-    command: ["-config.file=/etc/mimir.yaml","-target=all"]
-    ports: ["9009:9009"]
-    volumes: ["./mimir.yaml:/etc/mimir.yaml"]
-  # pyroscope:
-  # otel-collector:
+  # mimir:
+  #   image: grafana/mimir:latest
+  #   command: ["-config.file=/etc/mimir.yaml","-target=all"]
+  #   ports: ["9009:9009"]
+  #   volumes: ["./mimir.yaml:/etc/mimir.yaml"]
+
+  # pyroscope is for profileing
+  pyroscope:
+    image: grafana/pyroscope:2.3.0
+    ports: ["4040:4040"]
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.160.0
+    command: ["--config=/etc/otelcol/config.yaml"]
+    ports: ["4317:4317","4318:4318"]
+    volumes: ["./otel-collector/config.yaml:/etc/otelcol/config.yaml"]
+    depends_on: [loki]
   # alloy:
   # localstack:
   # api:

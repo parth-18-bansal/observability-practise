@@ -15,3 +15,7 @@ datasources:
   - name: Tempo
     type: tempo
     url: http://tempo:3200
+  - name: Mimir
+    type: Prometheus
+    uid: mimir
+    url: http://mimir:9009/prometheus
