@@ -19,3 +19,7 @@ datasources:
     type: Prometheus
     uid: mimir
     url: http://mimir:9009/prometheus
+  - name: Pyroscope
+    type: grafana-pyroscope-datasources
+    uid: pyroscope
+    url: http://pyroscope:4040
