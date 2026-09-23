@@ -1,0 +1,9 @@
+// to delete everything
+sudo nerdctl system prune -a --volumes
+
+// for deleting containers
+sudo nerdctl compose down
+
+// for deleting unused images
+sudo nerdctl image prune -a
+
