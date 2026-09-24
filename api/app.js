@@ -5,7 +5,7 @@ const { SNSClient, PublishCommand } = require('@aws-sdk/client-sns');
 // creating sns client
 const sns = new SNSClient({
   region: process.env.AWS_REGION,
-  endpoint: process.env.AWS_ENDPOINT,   // http://localstack:4566
+  endpoint: process.env.AWS_ENDPOINT,   // http://floci:4566
 });
 
 // app object
