@@ -49,20 +49,20 @@ services:
   #   volumes: ["./mimir.yaml:/etc/mimir.yaml"]
 
   # pyroscope is for profileing
-  pyroscope:
-    image: grafana/pyroscope:2.3.0
-    ports: ["4040:4040"]
+  # pyroscope:
+  #   image: grafana/pyroscope:2.3.0
+  #   ports: ["4040:4040"]
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.160.0
     command: ["--config=/etc/otelcol/config.yaml"]
     ports: ["4317:4317","4318:4318"]
     volumes: ["./otel-collector/config.yaml:/etc/otelcol/config.yaml"]
     depends_on: [loki]
-  alloy:
-    image: grafana/alloy:latest
-    command: ["run","--server.http.listen-addr=0.0.0.0:12345","/etc/alloy/config.alloy"]
-    ports: ["12345":"12345"]
-    volumes: ["./alloy/config.alloy:/etc/alloy/config.alloy"]
+  # alloy:
+  #   image: grafana/alloy:latest
+  #   command: ["run","--server.http.listen-addr=0.0.0.0:12345","/etc/alloy/config.alloy"]
+  #   ports: ["12345":"12345"]
+  #   volumes: ["./alloy/config.alloy:/etc/alloy/config.alloy"]
 
 
 
@@ -106,7 +106,7 @@ services:
       TOPIC_ARN: "arn:aws:sns:us-east-1:000000000000:orders"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
       OTEL_SERVICE_NAME: "api"
-    depends_on: [floci, otel-collector]
+    depends_on: [floci]
 
   worker:
     build: ./worker
@@ -119,4 +119,4 @@ services:
       RESULT_BUCKET: "order-results"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
       OTEL_SERVICE_NAME: "worker"
-    depends_on: [floci, otel-collector]
+    depends_on: [floci]

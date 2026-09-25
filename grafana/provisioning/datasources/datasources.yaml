@@ -12,9 +12,20 @@ datasources:
     type: loki
     uid: loki
     url: http://loki:3100
+    jsonData:
+      derivedFields:
+        - name: TraceID
+          matcherRegex: '"trace_id":"(\w+)"'
+          url: '$${__value.raw}'
+          datasourceUid: tempo
   - name: Tempo
     type: tempo
     url: http://tempo:3200
+    jsonData:
+      tracesToLogsV2:
+        datasourceUid: loki
+      tracesToMetrics:
+        datasourceUid: prometheus
   - name: Mimir
     type: Prometheus
     uid: mimir

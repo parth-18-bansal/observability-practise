@@ -7,3 +7,11 @@ scrape_configs:
   - job_name: prometheus
     static_configs:
       - targets: ["localhost:9090"]
+  - job_name: api
+    metrics_path: /metrics
+    static_configs:
+      -targets: ["api:9464"]
+  - job_name: worker
+    metrics_path: /metrics
+    static_configs:
+      -tagets: ["worker:9464"]

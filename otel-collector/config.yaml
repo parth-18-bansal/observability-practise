@@ -8,13 +8,18 @@ processors:
   batch: {}
 
 exporters:
+  # here otel pushes the traces to tempo container
   otlp/tempo:
     endpoint: tempo:4317
     tls: {insecure: true}
+  # here otel pushes the logs to loki contianer
   otlphttp/loki:
     endpoint: http://loki:3100/otlp
+  # here otel pushes the metrics to mimir
   otlphttp/mimir:
     endpoint: http://mimir:9009/otlp
+  # here otel expose it self at port 94649(not push) so that prometheus can pull metrics
+  # in prometheus format
   prometheus: 
     endpoint: 0.0.0.0:9464
 
