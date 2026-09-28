@@ -1,0 +1,50 @@
+1. there are four golden signals to get information about whether users are able to access our application smoothly
+or not
+
+a. latency
+-> 
+1. in how much time a user gets the response.
+
+2. we should measure it in percentile, because mean hide the tail, i.e if p95 = 300ms then it means 95% of
+requests are below 300ms and 5% of request take more than 300ms, but mean hide this information, and from
+we do not get much info about slow requests. tail(means slower request in latency distribution)
+
+3. measure latency in different groups according to response code. i.e 2xx response latency measurment,
+5xx response latency should be different because let say from 100 req 10 are fail and fails very fast in 2ms
+if we include those fail req into success req then it will affect the actual measurement so graph of latency of 
+success req should be not be include in graph of latency of failed req.
+
+Always split latency by outcome.
+
+4. histograms represents percentile so for latency we can use histograms.
+
+b. traffic
+->
+1. traffic is demand on the system, and each hop can have a traffic metric, hop means request go to server,
+then server sends result to sns then to sqs then to s3 bucket
+
+so hops are server --> sns---> sqs ---> s3 bucket
+
+so each hop have traffic metric
+
+traffic = request per second
+
+c. errors
+->
+1. it is rate of failed request, i.e number of request failed per total number of request(traffic)
+2. there are three type of failure:
+first is request that give 5xx, error code
+second is that gives 2xx, but response body has wrong content, empty etc.
+third is policy, means there is SLO that request should take 100ms but particular request takes 200ms then
+that request is also count as failure. 
+
+error = failed/total
+
+d. saturation
+->
+1. it is how constraint is our most limited resources. for example if in server 50% ram is in use and 95% cpu is in use
+then cpu is most limited resource.
+2. saturation can measured in term of number of in-flight request, i.e. concurrent requests. because if there 
+is saturation then request take time to resolve then number of concurrent requests increase
+3. saturation is leading signal because before latency or errors saturation happens. so before getting anything
+in latency or errors we get info from saturation.
