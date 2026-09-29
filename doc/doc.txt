@@ -48,3 +48,17 @@ then cpu is most limited resource.
 is saturation then request take time to resolve then number of concurrent requests increase
 3. saturation is leading signal because before latency or errors saturation happens. so before getting anything
 in latency or errors we get info from saturation.
+
+
+
+
+2.
+there are two type of observation RED and USE
+
+RED = rate(traffic, number of request a server is handling), error (fraction of request that get failed),
+duration( latency, time taken by request)
+RED tell how application is behaving from user prespective
+
+USE = utilisation(utilisation of different resource of server), saturation, Errors(errors from resouce prespective, server errors)
+It tells why our application or service is behaving like that.
+
