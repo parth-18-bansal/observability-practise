@@ -18,7 +18,7 @@ exporters:
   # here otel pushes the metrics to mimir
   otlphttp/mimir:
     endpoint: http://mimir:9009/otlp
-  # here otel expose it self at port 94649(not push) so that prometheus can pull metrics
+  # here otel expose it self at port 9464(not push) so that prometheus can pull metrics
   # in prometheus format
   prometheus: 
     endpoint: 0.0.0.0:9464
