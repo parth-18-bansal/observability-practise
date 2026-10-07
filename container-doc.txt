@@ -1,0 +1,8 @@
+For image creation
+nerdctl ---> buildctl ---> buildkitd
+
+For running containers
+nerdctl ---> contaierd ---> runc
+
+For network
+CNI
