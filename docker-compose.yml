@@ -109,7 +109,7 @@ services:
       TOPIC_ARN: "arn:aws:sns:us-east-1:000000000000:orders"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
       OTEL_SERVICE_NAME: "api"
-    depends_on: [floci]
+    depends_on: [floci, otel-collector]
 
   worker:
     build: ./worker
@@ -122,4 +122,4 @@ services:
       RESULT_BUCKET: "order-results"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4318"
       OTEL_SERVICE_NAME: "worker"
-    depends_on: [floci]
+    depends_on: [floci, otel-collector]
